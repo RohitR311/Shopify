@@ -22,6 +22,9 @@ const SmartBag = ({ history }) => {
   const smartBag = useSelector((state) => state.smartBag);
   const { loading, error, bagItems } = smartBag;
 
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+
   const generateBag = () => {
     dispatch(listBagItems());
   };
@@ -30,11 +33,44 @@ const SmartBag = ({ history }) => {
     dispatch(removeFromBag(id));
   };
 
-  const addToCartHandler = () => {
+  const getMatchProducts = () => {
+    cartItems.forEach((item) => {
+      let itemsExist = bagItems.find((x) => x._id === item.product);
+      if (itemsExist) {
+        item.qty += itemsExist.qtty;
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      }
+    });
+  };
+
+  const getRemainingProducts = () => {
+    bagItems.forEach((item) => {
+      let i = 0;
+      for (i = 0; i < cartItems.length; i++) {
+        if (cartItems[i].product === item._id) break;
+      }
+      if (i == cartItems.length) dispatch(addToCart(item._id, item.qtty));
+    });
+  };
+
+  const addBagToCart = () => {
     bagItems.forEach((item) => dispatch(addToCart(item._id, item.qtty)));
-    dispatch({ type: BAG_CLEAR_ITEMS });
-    localStorage.removeItem("bagItems");
-    history.push("/cart");
+  };
+
+  const addToCartHandler = () => {
+    if (cartItems.length === 0) {
+      addBagToCart();
+      dispatch({ type: BAG_CLEAR_ITEMS });
+      localStorage.removeItem("bagItems");
+      history.push("/cart");
+    } else {
+      // addBagToCart();
+      getMatchProducts();
+      getRemainingProducts();
+      dispatch({ type: BAG_CLEAR_ITEMS });
+      localStorage.removeItem("bagItems");
+      history.push("/cart");
+    }
   };
 
   return (
@@ -56,6 +92,7 @@ const SmartBag = ({ history }) => {
           </>
         ) : (
           <>
+            <h3>Top 5 recommendations:</h3>
             <ListGroup variant="flush">
               {bagItems.map((item) => (
                 <ListGroup.Item key={item._id}>

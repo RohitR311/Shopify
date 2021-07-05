@@ -32,7 +32,7 @@ export const bagItemsReducer = (state = { bagItems: [] }, action) => {
           x._id === existItem._id ? item : x
         ),
       };
-  
+
     case BAG_REMOVE_ITEM:
       return {
         ...state,
