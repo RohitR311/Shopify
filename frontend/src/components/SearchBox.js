@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import '../styles/components/SearchBox.css'
 
 const SearchBox = () => {
   const [keyword, setKeyword] = useState();
@@ -18,12 +19,12 @@ const SearchBox = () => {
   };
 
   return (
-    <Form onSubmit={submitHandler} inline>
+    <Form onSubmit={submitHandler} className="search-box">
       <Form.Control
         type="text"
         name="q"
         onChange={(e) => setKeyword(e.target.value)}
-        className="mr-sm-2 ml-sm-5"
+        className="search-bar"
       ></Form.Control>
 
       <Button type="submit" variant="outline-success" className="p-2">

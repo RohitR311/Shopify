@@ -1,3 +1,4 @@
+from ..smartbag import func
 from django.shortcuts import render
 
 from rest_framework.decorators import api_view, permission_classes
@@ -109,6 +110,9 @@ def getOrderById(request, pk):
 @api_view(["PUT"])
 @permission_classes([IsAuthenticated])
 def updateOrderToPaid(request, pk):
+    user = request.user
+    func(user)
+
     order = Order.objects.get(_id=pk)
 
     order.isPaid = True

@@ -1,0 +1,9 @@
+export const BAG_LIST_REQUEST = 'BAG_LIST_REQUEST'
+export const BAG_LIST_SUCCESS = 'BAG_LIST_SUCCESS'
+export const BAG_LIST_FAILURE = 'BAG_LIST_FAILURE'
+
+export const BAG_ADD_SUCCESS = "BAG_ADD_SUCCESS";
+export const BAG_ADD_ITEM = "BAG_ADD_ITEM";
+
+export const BAG_REMOVE_ITEM = "BAG_REMOVE_ITEM";
+export const BAG_CLEAR_ITEMS = "BAG_CLEAR_ITEMS";

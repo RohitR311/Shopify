@@ -1,4 +1,5 @@
 import axios from "axios";
+import { BAG_CLEAR_ITEMS } from "../constants/bagConstants";
 import {
   CART_CLEAR_ITEMS,
   CART_CLEAR_PAYMENT_METHOD,
@@ -73,12 +74,14 @@ export const logout = () => (dispatch) => {
   dispatch({ type: USER_DETAILS_RESET });
   dispatch({ type: USER_LIST_RESET });
   dispatch({ type: CART_CLEAR_ITEMS });
+  dispatch({ type: BAG_CLEAR_ITEMS });
   dispatch({ type: CART_CLEAR_SHIPPING_ADDRESS });
   dispatch({ type: CART_CLEAR_PAYMENT_METHOD });
   dispatch({ type: ORDER_MY_LIST_RESET });
 
   localStorage.removeItem("userInfo");
   localStorage.removeItem("cartItems");
+  localStorage.removeItem("bagItems");
   localStorage.removeItem("shippingAddress");
   localStorage.removeItem("paymentMethod");
 };

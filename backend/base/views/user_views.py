@@ -1,3 +1,5 @@
+from base.regression import regression
+from base.smartbag import func
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view, permission_classes
@@ -19,10 +21,15 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         serializer = UserSerializerWithToken(self.user).data
 
+        func(self.user)
+        # regression(self.user)
+
         for k, v in serializer.items():
             data[k] = v
 
         return data
+
+    
 
 
 class MyTokenObtainPairView(TokenObtainPairView):

@@ -1,0 +1,9 @@
+.search-box {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.search-bar {
+  margin-right: 10px;
+}
+

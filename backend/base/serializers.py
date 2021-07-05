@@ -57,6 +57,15 @@ class ProductSerializer(serializers.ModelSerializer):
         serializer = ReviewSerializer(reviews, many=True)
         return serializer.data
 
+class BagSerializer(serializers.ModelSerializer):
+    _id = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = Product
+        fields = ("_id", "name", "image", "price", "countInStock", "qtty")
+
+    def get__id(self, obj):
+        return obj._id
 
 class ShippingAddressSerializer(serializers.ModelSerializer):
     class Meta:

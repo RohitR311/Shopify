@@ -1,3 +1,4 @@
+from base.regression import regression
 from django.shortcuts import render
 
 from rest_framework.decorators import api_view, permission_classes
@@ -6,8 +7,11 @@ from rest_framework.response import Response
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from base.models import *
-from base.serializers import ProductSerializer, ReviewSerializer
+from base.serializers import *
 from rest_framework import status
+from ..smartbag import func
+
+import json
 
 
 # Get all products
@@ -17,10 +21,10 @@ def getProducts(request):
     if query == None:
         query = ""
 
-    products = Product.objects.filter(name__icontains=query)
+    products = Product.objects.filter(name__icontains=query).order_by('-createdAt')
 
     page = request.query_params.get("page")
-    paginator = Paginator(products, 4)
+    paginator = Paginator(products, 6)
 
     try:
         products = paginator.page(page)
@@ -52,6 +56,7 @@ def getTopProducts(request):
 def getProduct(request, pk):
     product = Product.objects.get(_id=pk)
 
+    # func(request)
     # reviews = Review.objects.filter(product=product)
 
     # page = request.query_params.get("reviewspage")
@@ -182,3 +187,22 @@ def createProductReview(request, pk):
         product.save()
 
         return Response("Review added successfully")
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getGeneratedProducts(request):
+    user =  request.user
+
+    result = regression(user)[:5]
+
+    products = [Product.objects.get(name=name[0]) for name in result]
+    bagItems = []
+
+    for product in products:
+        serializer = BagSerializer(product, many=False)
+        bagItems.append(serializer.data)
+
+    # print(regression(user))
+
+    return Response(bagItems)

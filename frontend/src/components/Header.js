@@ -30,8 +30,17 @@ const Header = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <SearchBox />
-            <Nav className="ml-auto">
-              <LinkContainer to="/cart">
+            <Nav className="nav">
+
+            {userInfo ? (
+                <LinkContainer to="/smartbag"  className="smart-bag">
+                  <Nav.Link href="/smartbag">
+                    <i className="fa fa-shopping-bag"></i> Bag
+                  </Nav.Link>
+                </LinkContainer>
+              ): (<div className="smart-bag"></div>)}
+
+              <LinkContainer to="/cart"  className="e-cart">
                 <Nav.Link href="/cart">
                   <i className="fas fa-shopping-cart"></i> Cart
                 </Nav.Link>

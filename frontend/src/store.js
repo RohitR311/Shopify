@@ -28,6 +28,7 @@ import {
   orderMyListReducer,
   orderPayReducer,
 } from "./reducers/orderReducers";
+import { bagItemsReducer } from "./reducers/bagReducers";
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -51,10 +52,15 @@ const reducer = combineReducers({
   orderDeliver: orderDeliverReducer,
   orderMyList: orderMyListReducer,
   orderList: orderListReducer,
+  smartBag: bagItemsReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")
   ? JSON.parse(localStorage.getItem("cartItems"))
+  : [];
+
+const bagItemsFromStorage = localStorage.getItem("bagItems")
+  ? JSON.parse(localStorage.getItem("bagItems"))
   : [];
 
 const userInfoFromStorage = localStorage.getItem("userInfo")
@@ -75,6 +81,7 @@ const initialState = {
     shippingAddress: shippingAddressFromStorage,
     paymentMethod: paymentMethodFromStorage,
   },
+  smartBag: { bagItems: bagItemsFromStorage },
   userLogin: { userInfo: userInfoFromStorage },
 };
 

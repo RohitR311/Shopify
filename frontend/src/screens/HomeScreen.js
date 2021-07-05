@@ -6,7 +6,7 @@ import { listProducts } from "../actions/productActions";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
 import Paginate from "../components/Paginate";
-import ProductCarousel from "./ProductCarousel";
+import ProductCarousel from "../components/ProductCarousel";
 
 const HomeScreen = ({ history }) => {
   const dispatch = useDispatch();
