@@ -4,14 +4,18 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^4.7.1",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
+    "geojson": "^0.5.0",
+    "mapbox-gl": "^2.3.1",
     "react": "^17.0.2",
     "react-bootstrap": "^1.5.2",
     "react-bootstrap-country-select": "^0.7.12",
     "react-dom": "^17.0.2",
+    "react-mapbox-gl-geocoder": "^1.1.0",
     "react-paypal-button-v2": "^2.6.3",
     "react-redux": "^7.2.3",
     "react-router-bootstrap": "^0.25.0",
@@ -46,5 +50,4 @@
       "last 1 safari version"
     ]
   }
-  
 }

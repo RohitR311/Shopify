@@ -10,6 +10,9 @@ from base.serializers import ProductSerializer, OrderSerializer
 from rest_framework import status
 from datetime import datetime
 
+from geopy.geocoders import Nominatim
+
+geolocator = Nominatim(user_agent="Rohit")
 
 @api_view(["POST"])
 @permission_classes([IsAuthenticated])
@@ -114,9 +117,16 @@ def updateOrderToPaid(request, pk):
 
     order = Order.objects.get(_id=pk)
 
+    address = ShippingAddres.objects.get(order=order)
+
     order.isPaid = True
     order.paidAt = datetime.now()
     order.save()
+
+    location = geolocator.geocode(address.city)
+    address.lat = location.latitude
+    address.lon = location.longitude
+    address.save()
     
     func(user)
 

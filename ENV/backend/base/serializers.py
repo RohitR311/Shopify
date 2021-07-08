@@ -1,7 +1,9 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
+# from rest_framework_gis.serializers import GeoFeatureModelSerializer
 from .models import *
+
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -72,6 +74,15 @@ class ShippingAddressSerializer(serializers.ModelSerializer):
         model = ShippingAddres
         fields = "__all__"
 
+class LocationSerializer(serializers.ModelSerializer):
+    _id = serializers.SerializerMethodField(read_only=True)
+
+    class Meta:
+        model = ShippingAddres
+        fields = ("_id","lat", "lon", "city", "country", "address")
+
+    def get__id(self, obj):
+        return obj._id
 
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:

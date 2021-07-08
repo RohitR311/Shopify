@@ -1,6 +1,11 @@
 from base.regression import regression
 from django.shortcuts import render
 
+
+
+from geojson import Feature, Point, FeatureCollection
+
+
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
@@ -12,7 +17,6 @@ from rest_framework import status
 from ..smartbag import func
 
 import json
-
 
 # Get all products
 @api_view(["GET"])
@@ -206,3 +210,9 @@ def getGeneratedProducts(request):
     # print(regression(user))
 
     return Response(bagItems)
+
+@api_view(['GET'])
+def getMapData(request):
+    locations = ShippingAddres.objects.all()
+    serializer = LocationSerializer(locations, many=True)
+    return Response(serializer.data)

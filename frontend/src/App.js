@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import CartScreen from "./screens/CartScreen";
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
+import MapScreen from "./screens/MapScreen";
 import OrderListScreen from "./screens/OrderListScreen";
 import OrderScreen from "./screens/OrderScreen";
 import PaymentScreen from "./screens/PaymentScreen";
@@ -23,6 +24,7 @@ function App() {
   return (
     <Router>
       <Header />
+      <Route path="/map" component={MapScreen} />
       <main className="py-3">
         <Container>
           <Route path="/" component={HomeScreen} exact />

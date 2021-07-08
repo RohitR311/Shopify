@@ -1,12 +1,20 @@
 asgiref==3.3.4
 Django==3.2
 django-cors-headers==3.7.0
+django-geojson==3.2.0
 djangorestframework==3.12.4
+djangorestframework-gis==0.17
 djangorestframework-simplejwt==4.6.0
+GDAL @ file:///D:/WEBD/GDAL-3.3.1-cp39-cp39-win_amd64.whl
+geographiclib==1.52
+geojson==2.5.0
+geopy==2.1.0
 joblib==1.0.1
+nominatim==0.1
 numpy==1.21.0
 pandas==1.2.5
 Pillow==8.2.0
+psycopg2==2.9.1
 PyJWT==2.0.1
 python-dateutil==2.8.1
 pytz==2021.1

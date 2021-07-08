@@ -21,7 +21,7 @@ const Header = () => {
   };
 
   return (
-    <header>
+    <header >
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container>
           <LinkContainer to="/">
@@ -31,16 +31,24 @@ const Header = () => {
           <Navbar.Collapse id="basic-navbar-nav">
             <SearchBox />
             <Nav className="nav">
+              <LinkContainer to="/map" className="map">
+                <Nav.Link href="/map">
+                  <i className="fa fa-map-marked"></i> Map
+                </Nav.Link>
+              </LinkContainer>
 
-            {userInfo ? (
-                <LinkContainer to="/smartbag"  className="smart-bag">
+              {userInfo ? (
+                <LinkContainer to="/smartbag" className="smart-bag">
                   <Nav.Link href="/smartbag">
                     <i className="fa fa-shopping-bag"></i> Bag
                   </Nav.Link>
                 </LinkContainer>
-              ): (<div className="smart-bag"></div>)}
+              ) : (
+                <div className="smart-bag"></div>
+              )}
 
-              <LinkContainer to="/cart"  className="e-cart">
+
+              <LinkContainer to="/cart" className="e-cart">
                 <Nav.Link href="/cart">
                   <i className="fas fa-shopping-cart"></i> Cart
                 </Nav.Link>

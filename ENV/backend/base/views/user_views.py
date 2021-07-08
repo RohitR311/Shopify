@@ -22,7 +22,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         serializer = UserSerializerWithToken(self.user).data
 
         func(self.user)
-        # regression(self.user)
 
         for k, v in serializer.items():
             data[k] = v

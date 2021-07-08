@@ -18,7 +18,7 @@ def regression(user):
 
     dataset = pd.read_csv(f'files/{csv_name}.csv', index_col=0)
 
-    X = dataset.iloc[:, 1:-2].values
+    X = dataset.iloc[:, 1:-1].values
     y = dataset.iloc[:, -1].values
 
     regressor = LinearRegression()
