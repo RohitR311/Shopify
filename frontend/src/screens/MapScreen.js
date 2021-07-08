@@ -16,9 +16,9 @@ mapboxgl.accessToken =
 const MapScreen = () => {
   const mapContainer = useRef(null);
   const map = useRef(null);
-  const [lng, setLng] = useState(76.9966);
-  const [lat, setLat] = useState(16.3836);
-  const [zoom, setZoom] = useState(4.5);
+  const [lng, setLng] = useState(-93.7200);
+  const [lat, setLat] = useState(29.3265);
+  const [zoom, setZoom] = useState(2.85);
 
   const geocoder = new MapboxGeocoder({
     accessToken: mapboxgl.accessToken,
@@ -31,6 +31,7 @@ const MapScreen = () => {
     const result = response.data;
     const locations = GeoJSON.parse(result, { Point: ["lat", "lon"] });
     console.log(locations.features[0].properties._id);
+
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v11",
@@ -38,6 +39,13 @@ const MapScreen = () => {
       zoom: zoom,
     });
     map.current.addControl(geocoder);
+
+    map.current.on("move", () => {
+      setLng(map.current.getCenter().lng.toFixed(4));
+      setLat(map.current.getCenter().lat.toFixed(4));
+      setZoom(map.current.getZoom().toFixed(2));
+    });
+
     map.current.on("load", function () {
       // Add a new source from our GeoJSON data and
       // set the 'cluster' option to true. GL-JS will
@@ -143,33 +151,6 @@ const MapScreen = () => {
           .addTo(map.current);
       });
 
-      // When a click event occurs on a feature in
-      // the unclustered-point layer, open a popup at
-      // the location of the feature, with
-      // description HTML from its properties.
-      // map.current.on("click", "unclustered-point", function (e) {
-      //   var coordinates = e.features[0].geometry.coordinates.slice();
-      //   var mag = e.features[0].properties.mag;
-      //   var tsunami;
-
-      //   if (e.features[0].properties.tsunami === 1) {
-      //     tsunami = "yes";
-      //   } else {
-      //     tsunami = "no";
-      //   }
-
-      //   // Ensure that if the map is zoomed out such that
-      //   // multiple copies of the feature are visible, the
-      //   // popup appears over the copy being pointed to.
-      //   while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
-      //     coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
-      //   }
-
-      //   new mapboxgl.Popup()
-      //     .setLngLat(coordinates)
-      //     .setHTML("magnitude: " + mag + "<br>Was there a tsunami?: " + tsunami)
-      //     .addTo(map);
-      // });
       map.current.on("mouseenter", "clusters", function () {
         map.current.getCanvas().style.cursor = "pointer";
       });
@@ -183,15 +164,6 @@ const MapScreen = () => {
       map.current.on("mouseleave", "unclustered-point", function () {
         map.current.getCanvas().style.cursor = "";
       });
-    });
-  }, []);
-
-  useEffect(() => {
-    if (!map.current) return; // wait for map to initialize
-    map.current.on("move", () => {
-      setLng(map.current.getCenter().lng.toFixed(4));
-      setLat(map.current.getCenter().lat.toFixed(4));
-      setZoom(map.current.getZoom().toFixed(2));
     });
   }, []);
 
